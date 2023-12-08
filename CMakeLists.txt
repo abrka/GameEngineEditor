@@ -24,7 +24,6 @@ target_sources(${PROJECT_NAME}
                         include/GameEngineEditor/Application.h 
                         include/GameEngineEditor/AssetBrowser.h 
                         include/GameEngineEditor/EditorApplication.h 
-                        include/GameEngineEditor/ReflectedVar.h
                         include/GameEngineEditor/ReflectedVarRenderer.h 
                         include/GameEngineEditor/TreeNode.h 
                         include/GameEngineEditor/TreeNodeRenderer.h )
@@ -43,7 +42,9 @@ target_link_libraries(${PROJECT_NAME} SDL2::SDL2main)
 add_subdirectory(external/imgui)
 target_link_libraries(imgui SDL2::SDL2)
 target_link_libraries(imgui SDL2::SDL2main)
-
 target_link_libraries(${PROJECT_NAME} imgui)
+
+add_subdirectory(external/ecs)
+target_link_libraries(${PROJECT_NAME} EcsSerializerLib)
 
 

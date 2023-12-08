@@ -2,7 +2,6 @@
 #include <assert.h>
 #include <iostream>
 
-
 std::string Editor::TreeNode::GetImguiID() const
 {
     return std::string{ Name + "##" + reinterpret_cast<const char*>(this) };
