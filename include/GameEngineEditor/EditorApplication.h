@@ -1,8 +1,6 @@
 #pragma once
 #include "Application.h"
 #include <memory>
-#include "Property.h"
-#include "PropertyContainer.h"
 #include "TreeNode.h"
 #include "AssetBrowser.h"
 #include "TreeNodeRenderer.h"
