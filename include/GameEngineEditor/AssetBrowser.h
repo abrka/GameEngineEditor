@@ -6,7 +6,7 @@ namespace Editor {
     {
     public:
         AssetBrowser();
-        void Update();
+        void Render();
     private:
         void DrawFiles();
         const std::filesystem::path StartingPath{ std::filesystem::current_path() };

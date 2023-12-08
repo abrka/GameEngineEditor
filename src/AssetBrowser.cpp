@@ -38,7 +38,10 @@ void Editor::AssetBrowser::DrawFiles()
 }
 
 
-void Editor::AssetBrowser::Update()
+void Editor::AssetBrowser::Render()
 {
+    ImGuiWindowFlags AssetBrowserFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
+    ImGui::Begin("Asset Browser", (bool*)0, AssetBrowserFlags);
     DrawFiles();
+    ImGui::End();
 }

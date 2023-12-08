@@ -1,6 +1,7 @@
 #include "EditorApplication.h"
 #include <string>
-
+#include "PropertyInspectorPanel.h"
+#include "HierarchyEntityPanel.h"
 
 
 void EditorApplication::Startup()
@@ -101,47 +102,10 @@ void EditorApplication::Loop()
 
     // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
     {
-
-        ImGuiWindowFlags PropertyPanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
-        ImGui::Begin("Property inspector", (bool*)0, PropertyPanelFlags);
-        ShowMyProperties();
-        ImGui::End();
-
-
-
-        ImGuiWindowFlags TreePanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
-
-        ImGui::Begin("Tree panel", (bool*)0, TreePanelFlags);
-
-
-        bool AddNodeButtonClicked = ImGui::Button("[+] Add Tree Node");
-        ImGui::SameLine();
-        bool RemoveNodeButtonClicked = ImGui::Button("[-] Remove Tree Node");
-
-        s_TreeNodeRenderer.Render(*MyRootNode);
-
-        if (AddNodeButtonClicked and s_TreeNodeRenderer.SelectedNode != nullptr) {
-            s_TreeNodeRenderer.SelectedNode->AddChild(std::make_unique<Editor::TreeNode>("Added tree node"));
-            s_TreeNodeRenderer.SelectedNode->ImGuiFlags |= ImGuiTreeNodeFlags_DefaultOpen;
-        }
-
-        if (RemoveNodeButtonClicked && s_TreeNodeRenderer.SelectedNode != nullptr) {
-
-            s_TreeNodeRenderer.SelectedNode->RemoveFromParent();
-            s_TreeNodeRenderer.SelectedNode = nullptr;
-        }
-
-
-        ImGui::End();
-
-
-        ImGuiWindowFlags AssetBrowserFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
-        ImGui::Begin("Asset Browser", (bool*)0, AssetBrowserFlags);
-        s_AssetBrowser.Update();
-        ImGui::End();
-
-
-
+   
+        Editor::RenderPropertyPanel(ReflVars);
+        Editor::RenderHierarchyEntityPanel(MyRootNode);
+        s_AssetBrowser.Render();
     }
 
   
@@ -186,12 +150,4 @@ EditorApplication::~EditorApplication()
     SDL_DestroyWindow(window);
     SDL_Quit();
     
-};
-
-void EditorApplication::ShowMyProperties()
-{
-    for (auto& Var : ReflVars)
-    {
-        Editor::RenderVar(Var);
-    }
 };

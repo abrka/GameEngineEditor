@@ -3,7 +3,7 @@
 #include <memory>
 #include "TreeNode.h"
 #include "AssetBrowser.h"
-#include "TreeNodeRenderer.h"
+
 #include "ReflectedVar.h"
 #include "EditorTypes.h"
 #include "ReflectedVarRenderer.h"
@@ -31,7 +31,7 @@ private:
     void InputLoop();
     
 
-    void ShowMyProperties();
+   
 
     // Our state
     bool show_demo_window = false;
@@ -41,6 +41,6 @@ private:
     std::unique_ptr<Editor::TreeNode> MyRootNode = std::make_unique<Editor::TreeNode>("my node 1");
     std::unique_ptr<Editor::TreeNode> MyNode2 = std::make_unique<Editor::TreeNode>("my node 2");
     Editor::AssetBrowser s_AssetBrowser{};
-    Editor::TreeNodeRenderer s_TreeNodeRenderer{};
+  
 };
 
