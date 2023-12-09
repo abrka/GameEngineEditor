@@ -40,10 +40,10 @@ find_package(SDL2 REQUIRED)
 target_link_libraries(${PROJECT_NAME} SDL2::SDL2)
 target_link_libraries(${PROJECT_NAME} SDL2::SDL2main)
 
-add_subdirectory(external/imgui)
+add_subdirectory(external)
 target_link_libraries(imgui SDL2::SDL2)
 target_link_libraries(imgui SDL2::SDL2main)
-target_link_libraries(${PROJECT_NAME} imgui)
+target_link_libraries(${PROJECT_NAME} imgui::imgui)
 
 # include(FetchContent)
 # FetchContent_Declare(
