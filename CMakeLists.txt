@@ -45,12 +45,14 @@ target_link_libraries(imgui SDL2::SDL2)
 target_link_libraries(imgui SDL2::SDL2main)
 target_link_libraries(${PROJECT_NAME} imgui)
 
-include(FetchContent)
-FetchContent_Declare(
-  EcsLib
-  GIT_REPOSITORY https://github.com/abcdedafjkdmme/EcsSerializer.git
-)
-FetchContent_MakeAvailable(EcsLib)
+# include(FetchContent)
+# FetchContent_Declare(
+#   EcsLib
+#   GIT_REPOSITORY https://github.com/abcdedafjkdmme/EcsSerializer.git
+# )
+# FetchContent_MakeAvailable(EcsLib)
+
+add_subdirectory(external/ecs)
 target_link_libraries(${PROJECT_NAME} EcsSerializerLib)
 
 
