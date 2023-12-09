@@ -5,6 +5,7 @@
 namespace Editor {
 
     static Editor::TreeNodeRenderer s_TreeNodeRenderer{};
+   
 
 	void RenderHierarchyEntityPanel(std::unique_ptr<Editor::TreeNode>& RootNode) {
 
@@ -28,6 +29,7 @@ namespace Editor {
 
             s_TreeNodeRenderer.SelectedNode->RemoveFromParent();
             s_TreeNodeRenderer.SelectedNode = nullptr;
+            
         }
 
 

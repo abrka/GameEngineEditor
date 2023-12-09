@@ -19,14 +19,15 @@ target_sources(${PROJECT_NAME}
                         src/ReflectedVarRenderer.cpp 
                         src/TreeNode.cpp 
                         src/TreeNodeRenderer.cpp 
-
                                              
                         include/GameEngineEditor/Application.h 
                         include/GameEngineEditor/AssetBrowser.h 
                         include/GameEngineEditor/EditorApplication.h 
                         include/GameEngineEditor/ReflectedVarRenderer.h 
                         include/GameEngineEditor/TreeNode.h 
-                        include/GameEngineEditor/TreeNodeRenderer.h )
+                        include/GameEngineEditor/TreeNodeRenderer.h
+                        include/GameEngineEditor/HierarchyEntityPanel.h
+                        include/GameEngineEditor/PropertyInspectorPanel.h)
 
 
 

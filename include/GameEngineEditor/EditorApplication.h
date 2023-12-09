@@ -13,6 +13,9 @@
 #include "imgui_impl_sdlrenderer2.h"
 #include "imgui_impl_sdl2.h"
 
+#include "World.h"
+#include "Entity.h"
+
 class EditorApplication : public Application
 {
 
@@ -30,11 +33,8 @@ private:
     void Loop();
     void InputLoop();
     
-
-   
-
     // Our state
-    bool show_demo_window = false;
+    bool show_demo_window = true;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     std::vector<Reflect::Var> ReflVars;
@@ -42,5 +42,7 @@ private:
     std::unique_ptr<Editor::TreeNode> MyNode2 = std::make_unique<Editor::TreeNode>("my node 2");
     Editor::AssetBrowser s_AssetBrowser{};
   
+    Engine::World EcsWorld{};
+    
 };
 

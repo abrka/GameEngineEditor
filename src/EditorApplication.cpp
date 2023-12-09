@@ -2,7 +2,8 @@
 #include <string>
 #include "PropertyInspectorPanel.h"
 #include "HierarchyEntityPanel.h"
-
+#include "imgui_demo.cpp"
+#include "EngineComponents.h"
 
 void EditorApplication::Startup()
 {
@@ -68,22 +69,30 @@ void EditorApplication::Startup()
     static int t_int = 4;
     static std::string t_str = "hed";
     static float t_fl = 3.5934;
-    static float t_db = 34.5934;
+    static double t_db = 34.5934;
+    static double u_db = 34.5934;
     static Editor::Color4 t_col4{};
+    static Editor::Color4 u_col4{};
     static bool t_bool{};
     static Editor::Vector2 t_vec2{};
 
     ReflVars.push_back(Reflect::Var{ &t_int, Reflect::Type::IntType, "my int var" });
     ReflVars.push_back(Reflect::Var{ &t_str, Reflect::Type::StringType, "my string var" });
     ReflVars.push_back(Reflect::Var{ &t_col4, Reflect::Type::Color4Type, "my string var" });
+    ReflVars.push_back(Reflect::Var{ &u_col4, Reflect::Type::Color4Type, "my string var" });
     ReflVars.push_back(Reflect::Var{ &t_fl, Reflect::Type::FloatType, "my fl var" });
     ReflVars.push_back(Reflect::Var{ &t_db, Reflect::Type::DoubleType, "my db var" });
+    ReflVars.push_back(Reflect::Var{ &u_db, Reflect::Type::DoubleType, "my db var" });
     ReflVars.push_back(Reflect::Var{ &t_bool, Reflect::Type::BoolType, "my db var" });
     ReflVars.push_back(Reflect::Var{ &t_vec2, Reflect::Type::Vec2Type, "my db var" });
 
     MyRootNode->AddChild(std::move(MyNode2));
     MyRootNode->AddChild(std::make_unique < Editor::TreeNode>("my node 3"));
     MyRootNode->Children.back()->AddChild(std::make_unique < Editor::TreeNode>("my node 3"));
+
+    std::unique_ptr<Engine::Entity> EcsEntity1 = EcsWorld.CreateEntity();
+    EcsEntity1->AddComponent<Engine::Name>("my ecs entity");
+    EcsWorld.RootEntity->AddChild(std::move(EcsEntity1));
     
 };
 
@@ -97,15 +106,16 @@ void EditorApplication::Loop()
     ImGui::NewFrame();
 
     // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-    /*if (show_demo_window)
-        ImGui::ShowDemoWindow(&show_demo_window);*/
+    if (show_demo_window)
+        ImGui::ShowDemoWindow(&show_demo_window);
 
     // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
     {
    
-        Editor::RenderPropertyPanel(ReflVars);
+        Editor::RenderProperties(ReflVars);
         Editor::RenderHierarchyEntityPanel(MyRootNode);
         s_AssetBrowser.Render();
+        Editor::RenderComponentsPanel(*EcsWorld.RootEntity->Children.back());
     }
 
   

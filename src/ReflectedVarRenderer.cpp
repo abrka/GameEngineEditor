@@ -16,7 +16,7 @@ std::string Editor::GetImGuiIDFromName(const Reflect::Var& _Var)
 
 }
 
-void Editor::RenderVar(const Reflect::Var& _Var)
+void Editor::RenderVar(Reflect::Var& _Var)
 {
     
     switch (_Var.VarType)
@@ -41,8 +41,11 @@ void Editor::RenderVar(const Reflect::Var& _Var)
 
     case Reflect::Type::DoubleType:
     {
-        static float* m_PropertyAsFloat = static_cast<float*>(_Var.Data);
+       
+        float* m_PropertyAsFloat = (float*)(_Var.Data);
         ImGui::DragFloat(GetImGuiIDFromName(_Var).c_str(), m_PropertyAsFloat);
+        _Var.Data = m_PropertyAsFloat;
+        
         break;
     }
 
@@ -61,16 +64,22 @@ void Editor::RenderVar(const Reflect::Var& _Var)
     case Reflect::Type::Color4Type:
     {
         Editor::Color4* DataAsCol4 = static_cast<Editor::Color4*>(_Var.Data);
-        static float Color[4] = { DataAsCol4->r, DataAsCol4->g, DataAsCol4->b ,DataAsCol4->a };
+        float Color[4] = { DataAsCol4->r, DataAsCol4->g, DataAsCol4->b ,DataAsCol4->a };
         ImGui::ColorEdit4(GetImGuiIDFromName(_Var).c_str(), Color);
+        DataAsCol4->r = Color[0];
+        DataAsCol4->g = Color[1];
+        DataAsCol4->b = Color[2];
+        DataAsCol4->a = Color[3];
         break;
     }
 
     case Reflect::Type::Vec2Type:
     {
         Editor::Vector2* DataAsVec2 = static_cast<Editor::Vector2*>(_Var.Data);
-        static float Vector[2] = { DataAsVec2->x, DataAsVec2->y };
+        float Vector[2] = { DataAsVec2->x, DataAsVec2->y };
         ImGui::DragFloat2(GetImGuiIDFromName(_Var).c_str(), Vector);
+        DataAsVec2->x = Vector[0];
+        DataAsVec2->y = Vector[1];
         break;
     }
 
