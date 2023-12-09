@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.20)
+
+add_library(imgui)
+add_library(imgui::imgui ALIAS imgui)
+target_sources(imgui
+                PRIVATE imconfig.h
+                        imgui_demo.cpp
+                        imgui_draw.cpp
+                        imgui_internal.h
+                        imgui_tables.cpp 
+                        imgui_widgets.cpp 
+                        imgui.cpp 
+                        imgui.h 
+                        imstb_rectpack.h 
+                        imstb_textedit.h 
+                        imstb_truetype.h 
+                        backends/imgui_impl_sdl2.h
+                        backends/imgui_impl_sdl2.cpp
+                        backends/imgui_impl_sdlrenderer2.h
+                        backends/imgui_impl_sdlrenderer2.cpp
+                        misc/cpp/imgui_stdlib.cpp 
+                        misc/cpp/imgui_stdlib.h 
+                        )
+
+target_include_directories(
+    imgui
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/backends ${CMAKE_CURRENT_SOURCE_DIR}/misc/cpp>
+           $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
