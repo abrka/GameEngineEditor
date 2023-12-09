@@ -1,3 +1,6 @@
 [submodule "external/imgui"]
 	path = external/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "external/ecs"]
+	path = external/ecs
+	url = https://github.com/abcdedafjkdmme/EcsSerializer.git
