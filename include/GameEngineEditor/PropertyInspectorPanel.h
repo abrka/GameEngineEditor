@@ -7,7 +7,7 @@
 
 namespace Editor {
 	void RenderProperties(std::vector<Reflect::Var>& VarsToRender) {
-		ImGuiWindowFlags PropertyPanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
+		ImGuiWindowFlags PropertyPanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | /*ImGuiWindowFlags_NoMove |*/ ImGuiWindowFlags_NoCollapse;
 		ImGui::Begin("Property inspector", (bool*)0, PropertyPanelFlags);
 
 		for (auto& Var : VarsToRender)
@@ -20,7 +20,7 @@ namespace Editor {
 		for (auto& Comp : SelectedEntity.m_Components)
 		{
 			if (ImGui::CollapsingHeader(Comp->ComponentType.c_str())) {
-
+				
 			}
 		}
 	}

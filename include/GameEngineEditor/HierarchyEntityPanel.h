@@ -9,7 +9,7 @@ namespace Editor {
 
 	void RenderHierarchyEntityPanel(std::unique_ptr<Editor::TreeNode>& RootNode) {
 
-        ImGuiWindowFlags TreePanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse;
+        ImGuiWindowFlags TreePanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | /*ImGuiWindowFlags_NoMove |*/ ImGuiWindowFlags_NoCollapse;
 
         ImGui::Begin("Tree panel", (bool*)0, TreePanelFlags);
 
