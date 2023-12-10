@@ -7,7 +7,7 @@ namespace Editor {
     static Editor::TreeNodeRenderer s_TreeNodeRenderer{};
    
 
-	void RenderHierarchyEntityPanel(std::unique_ptr<Editor::TreeNode>& RootNode) {
+	void RenderHierarchyEntityPanel(Editor::TreeNode& RootNode) {
 
         ImGuiWindowFlags TreePanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | /*ImGuiWindowFlags_NoMove |*/ ImGuiWindowFlags_NoCollapse;
 
@@ -18,7 +18,7 @@ namespace Editor {
         ImGui::SameLine();
         bool RemoveNodeButtonClicked = ImGui::Button("[-] Remove Tree Node");
 
-        s_TreeNodeRenderer.Render(*RootNode);
+        s_TreeNodeRenderer.Render(RootNode);
 
         if (AddNodeButtonClicked and s_TreeNodeRenderer.SelectedNode != nullptr) {
             s_TreeNodeRenderer.SelectedNode->AddChild(std::make_unique<Editor::TreeNode>("Added tree node"));
@@ -27,7 +27,7 @@ namespace Editor {
 
         if (RemoveNodeButtonClicked && s_TreeNodeRenderer.SelectedNode != nullptr) {
 
-            s_TreeNodeRenderer.SelectedNode->RemoveFromParent();
+            s_TreeNodeRenderer.SelectedNode->DestroyNode();
             s_TreeNodeRenderer.SelectedNode = nullptr;
             
         }
