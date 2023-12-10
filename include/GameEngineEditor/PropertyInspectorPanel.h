@@ -9,17 +9,17 @@ namespace Editor {
 
 	void RenderProperties(std::vector<Reflect::Var>& VarsToRender) {
 
-		ImGuiWindowFlags PropertyPanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | /*ImGuiWindowFlags_NoMove |*/ ImGuiWindowFlags_NoCollapse;
-		ImGui::Begin("Property inspector", (bool*)0, PropertyPanelFlags);
-
 		for (auto& Var : VarsToRender)
 		{
 			Editor::RenderVar(Var);
 		}
-		ImGui::End();
+		
 	};
 
 	void RenderComponentsPanel(Engine::Entity& SelectedEntity) {
+
+		ImGuiWindowFlags PropertyPanelFlags = ImGuiWindowFlags_AlwaysHorizontalScrollbar | /*ImGuiWindowFlags_NoMove |*/ ImGuiWindowFlags_NoCollapse;
+		ImGui::Begin("Property inspector", (bool*)0, PropertyPanelFlags);
 
 		for (auto& Comp : SelectedEntity.m_Components)
 		{
@@ -27,5 +27,7 @@ namespace Editor {
 				RenderProperties(Comp->ExportedProperties);
 			}
 		}
+
+		ImGui::End();
 	}
 }

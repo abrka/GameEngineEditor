@@ -4,6 +4,7 @@
 #include "HierarchyEntityPanel.h"
 #include "imgui_demo.cpp"
 #include "EngineComponents.h"
+#include <assert.h>
 
 void EditorApplication::Startup()
 {
@@ -86,10 +87,8 @@ void EditorApplication::Startup()
     ReflVars.push_back(Reflect::Var{ &t_bool, Reflect::Type::BoolType, "my db var" });
     ReflVars.push_back(Reflect::Var{ &t_vec2, Reflect::Type::Vec2Type, "my db var" });
 
-    MyRootNode->AddChild(std::move(MyNode2));
-    MyRootNode->AddChild(std::make_unique < Editor::TreeNode>("my node 3"));
-    MyRootNode->Children.back()->AddChild(std::make_unique < Editor::TreeNode>("my node 3"));
-
+ 
+   
     std::unique_ptr<Engine::Entity> EcsEntity1 = EcsWorld.CreateEntity();
     EcsEntity1->AddComponent<Engine::Name>("my ecs entity");
     EcsWorld.RootEntity->AddChild(std::move(EcsEntity1));
@@ -113,9 +112,15 @@ void EditorApplication::Loop()
     {
    
         Editor::RenderProperties(ReflVars);
-        Editor::RenderHierarchyEntityPanel(MyRootNode);
+        Editor::RenderHierarchyEntityPanel(*TreeNodeRoot);
         s_AssetBrowser.Render();
         Editor::RenderComponentsPanel(*EcsWorld.RootEntity->Children.back());
+
+        ImGui::Begin("save and load scene");
+        if (ImGui::Button("save scene")) {
+            SaveScene("saved_main_scene");
+        }
+        ImGui::End();
     }
 
   
@@ -146,6 +151,30 @@ void EditorApplication::InputLoop()
         if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(window))
             IsRunning = true;
     }
+}
+void EditorApplication::LoadScene(std::string InFilePath)
+{
+    EcsWorld.LoadScene(InFilePath);
+};
+
+void EditorApplication::ConvertTreeNodesToEcsNodes(Editor::TreeNode& RootNode)
+{
+    for (auto& Node : RootNode.Children)
+    {
+        Engine::Entity* RootNodeAsEntity = static_cast<Engine::Entity*>(RootNode.AssociatedObject);
+
+        assert(RootNodeAsEntity != nullptr && "root nodes associated object in null");
+
+        RootNodeAsEntity->AddChild(EcsWorld.CreateEntity());
+        ConvertTreeNodesToEcsNodes(*Node);
+    }
+}
+
+void EditorApplication::SaveScene(std::string OutFilePath)
+{
+
+    ConvertTreeNodesToEcsNodes(*TreeNodeRoot);
+    EcsWorld.SaveScene(OutFilePath);
 };
 
 EditorApplication::~EditorApplication()

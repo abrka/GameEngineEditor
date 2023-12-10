@@ -18,7 +18,7 @@ void Editor::TreeNode::RemoveThisFromParentsChildren()
             }), Parent->Children.end());
 }
 
-void Editor::TreeNode::RemoveFromParent()
+void Editor::TreeNode::DestroyNode()
 {
     if (Parent == nullptr) {
         std::cout << "parent is null. returning from remove parent" << std::endl;
@@ -34,9 +34,9 @@ void Editor::TreeNode::AddChild(std::unique_ptr<Editor::TreeNode>&& Child)
     assert(Child != nullptr && "Child is nullptr");
     assert(Child.get() != this && "cannot add this entity as a child of this entity");
 
-    if (Child->Parent != nullptr) {
+   /* if (Child->Parent != nullptr) {
         Child->RemoveFromParent();
-    }
+    }*/
 
     Child->Parent = this;
     Children.push_back(std::move(Child));
