@@ -41,11 +41,7 @@ void Editor::RenderVar(Reflect::Var& _Var)
 
     case Reflect::Type::DoubleType:
     {
-       
-        float* m_PropertyAsFloat = (float*)(_Var.Data);
-        ImGui::DragFloat(GetImGuiIDFromName(_Var).c_str(), m_PropertyAsFloat);
-        _Var.Data = m_PropertyAsFloat;
-        
+        ImGui::DragScalar(GetImGuiIDFromName(_Var).c_str(),ImGuiDataType_Double, (double*)_Var.Data);
         break;
     }
 

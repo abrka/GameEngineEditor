@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
+#include <iostream>
 
 namespace Engine {
 
@@ -16,7 +17,7 @@ namespace Engine {
 		Component( std::string _ComponentType) :  ComponentType(_ComponentType) { };
 		virtual ~Component() {};
 
-		std::string ComponentType{ };
+		const std::string ComponentType{ "none component" };
 		Entity* Owner = nullptr;
 		std::vector<Reflect::Var> ExportedProperties;
 
@@ -24,6 +25,12 @@ namespace Engine {
 		virtual nlohmann::json ToJsonC() = 0;
 		virtual void InitFromJson(nlohmann::json& _json) = 0;
 
+		nlohmann::json ToJsonDebug() {
+			auto ret = nlohmann::json{
+				{"ComponentType", ComponentType}
+			};
+			return ret;
+		};
 		
 		
 	};

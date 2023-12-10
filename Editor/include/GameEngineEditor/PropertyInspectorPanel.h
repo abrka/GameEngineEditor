@@ -13,7 +13,7 @@ namespace Editor {
 		{
 			Editor::RenderVar(Var);
 		}
-		
+
 	};
 
 	void RenderComponentsPanel(Engine::Entity& SelectedEntity) {
@@ -23,7 +23,8 @@ namespace Editor {
 
 		for (auto& Comp : SelectedEntity.m_Components)
 		{
-			if (ImGui::CollapsingHeader(Comp->ComponentType.c_str())) {
+
+			if (ImGui::CollapsingHeader((Comp->ComponentType + "##" + reinterpret_cast<const char*>(&Comp)).c_str())) {
 				RenderProperties(Comp->ExportedProperties);
 			}
 		}

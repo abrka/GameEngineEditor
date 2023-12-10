@@ -3,6 +3,7 @@
 #include <memory>
 #include "TreeNode.h"
 #include "AssetBrowser.h"
+#include "HierarchyEntityPanel.h"
 
 #include "ReflectedVar.h"
 #include "EditorTypes.h"
@@ -20,7 +21,7 @@ class EditorApplication : public Application
 {
 
 public:
-    EditorApplication() {};
+    EditorApplication();
     ~EditorApplication();
 
 private:
@@ -35,7 +36,7 @@ private:
 
     void LoadScene(std::string InFilePath);
 
-    void ConvertTreeNodesToEcsNodes(Editor::TreeNode& RootNode);
+    void ConvertEcsEntitiesToTreeNodes(Editor::TreeNode& RootTreeNode, Engine::Entity& RootEntity);
     void SaveScene(std::string OutFilePath);
     
     // Our state
@@ -43,13 +44,11 @@ private:
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     std::vector<Reflect::Var> ReflVars;
-
     Engine::World EcsWorld{};
-    //Editor::TreeNode TreeNodeRoot{ "Root", (void*)(EcsWorld.RootEntity.get()) };
-
-    std::unique_ptr<Editor::TreeNode> TreeNodeRoot = std::make_unique<Editor::TreeNode>("Root", (void*) (EcsWorld.RootEntity.get()));
+    std::unique_ptr<Editor::TreeNode> TreeNodeRoot = std::make_unique<Editor::TreeNode>( "Root", *EcsWorld.RootEntity);
 
     Editor::AssetBrowser s_AssetBrowser{};
+    Editor::HierarchyEntityPanel s_EntityPanel{};
   
 
     

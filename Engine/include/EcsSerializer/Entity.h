@@ -18,7 +18,7 @@ namespace Engine {
 		Entity(Engine::World* _Scene, entt::entity _EntityHandle, json& EntityJson);
 		virtual ~Entity();
 
-		xg::Guid m_UUID;
+		const xg::Guid m_UUID;
 
 		std::vector<Component*> m_Components{};
 
@@ -32,7 +32,7 @@ namespace Engine {
 		void AddChild(std::unique_ptr<Entity>&& Child);
 		void RemoveThisFromParentsChildren();
 		void RemoveThisUUIDFromParentsChildrenUUID();
-		void RemoveFromParent();
+		void DestroyEntity();
 		
 
 	private:

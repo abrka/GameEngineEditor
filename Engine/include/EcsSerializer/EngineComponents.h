@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include "nlohmann/json.hpp"
 #include "Component.h"
@@ -15,9 +17,13 @@ namespace Engine {
 		};
 
 		nlohmann::json ToJsonC() override {
-			return nlohmann::json{
+			
+			auto ret = nlohmann::json{
 				{"ComponentType",ComponentType},
 			};
+
+			std::cout << "component json internal :" << std::setw(4) << ret << std::endl;
+			return ret;
 		};
 
 		void InitFromJson(nlohmann::json& _json) override { };
@@ -43,10 +49,14 @@ namespace Engine {
 		};
 
 		nlohmann::json ToJsonC() override {
-			return nlohmann::json{
+			
+			auto ret = nlohmann::json{
 				{"ComponentType",ComponentType},
-				{"Name", StrName}
-			};
+				{"Name", StrName} };
+
+			std::cout << "component json internal :" << std::setw(4) << ret << std::endl;
+			return ret;
+			
 		};
 
 		void InitFromJson(nlohmann::json& _json) override {
@@ -79,11 +89,14 @@ namespace Engine {
 		};
 
 		nlohmann::json ToJsonC() override {
-			return nlohmann::json{
+			
+			auto ret = nlohmann::json{
 				{"ComponentType",ComponentType},
 				{"X", X},
 				{"Y",Y}
 			};
+			std::cout <<"component json internal :"<< std::setw(4) << ret << std::endl;
+			return ret;
 		};
 
 		void InitFromJson(nlohmann::json& _json) override {

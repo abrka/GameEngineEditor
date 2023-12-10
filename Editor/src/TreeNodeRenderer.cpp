@@ -4,7 +4,7 @@
 #include "imgui.h"
 
 //accepts: the root node
-void Editor::TreeNodeRenderer::Render(TreeNode& Node)
+void Editor::EntityNodeRenderer::Render(Editor::TreeNode& Node)
 {
 
     if (SelectedNode == &Node) {

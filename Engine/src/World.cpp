@@ -67,6 +67,7 @@ void Engine::World::SaveScene(std::string OutFilePath)
 					] 
 					})"_json;
 
+	std::cout << SceneJson;
 
 	//old method for getting all entites
 	/*auto EntityView = m_Registry.view<EntityMarker>();
@@ -112,8 +113,6 @@ void Engine::World::LoadScene(std::string InFilePath)
 	json InJson;
 	std::ifstream InFile{ InFilePath };
 	InFile >> InJson;
-
-	
 
 	DestroyAllEntities();
 

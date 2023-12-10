@@ -5,9 +5,9 @@ namespace Editor {
 
     class TreeNode;
 
-    class TreeNodeRenderer {
+    class EntityNodeRenderer {
     public:
-        TreeNode* SelectedNode = nullptr;
-        void Render(TreeNode& Node);
+        Editor::TreeNode* SelectedNode = nullptr;
+        void Render(Editor::TreeNode& RootNode);
     };
 }

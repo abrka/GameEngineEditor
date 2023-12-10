@@ -16,6 +16,7 @@ target_sources(${PROJECT_NAME}
                         src/AssetBrowser.cpp 
                         src/EditorApplication.cpp 
                         src/EditorMain.cpp 
+                        src/HierarchyEntityPanel.cpp
                         src/ReflectedVarRenderer.cpp 
                         src/TreeNode.cpp 
                         src/TreeNodeRenderer.cpp 
@@ -23,6 +24,7 @@ target_sources(${PROJECT_NAME}
                         include/GameEngineEditor/Application.h 
                         include/GameEngineEditor/AssetBrowser.h 
                         include/GameEngineEditor/EditorApplication.h 
+                        include/GameEngineEditor/EditorTypes.h
                         include/GameEngineEditor/ReflectedVarRenderer.h 
                         include/GameEngineEditor/TreeNode.h 
                         include/GameEngineEditor/TreeNodeRenderer.h

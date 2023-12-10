@@ -43,21 +43,23 @@ namespace Engine {
 
 	void Entity::RemoveThisUUIDFromParentsChildrenUUID()
 	{
-		std::cout << Parent->DebugValue << std::endl;
 
 		Parent->ChildrenUUID.erase(
 			std::remove_if(Parent->ChildrenUUID.begin(), Parent->ChildrenUUID.end(),
 				[this](xg::Guid& UUID) {
 					return UUID == m_UUID;
 				}), Parent->ChildrenUUID.end());
-	
+
 	};
 
-	void Entity::RemoveFromParent()
+	void Entity::DestroyEntity()
 	{
-		RemoveThisUUIDFromParentsChildrenUUID();
-		//RemoveThisFromParentsChildren();
-		
+
+		//the parent of the root node is null. so we have to do this check to make sure we dont remove root uuid from its non existet parent
+		if (Parent != nullptr) {
+			RemoveThisUUIDFromParentsChildrenUUID();
+			RemoveThisFromParentsChildren();
+		}
 
 		Parent = nullptr;
 		xg::Guid EmtpyGuid;
@@ -72,24 +74,23 @@ namespace Engine {
 		assert(Child != nullptr && "Child is nullptr");
 		assert(Child.get() != this && "cannot add this entity as a child of this entity");
 
-		if (Child->Parent != nullptr) {
+		/*if (Child->Parent != nullptr) {
 			std::cout << "removed" << std::endl;
-			Child->RemoveFromParent();
-		}
-
+			Child->DestroyEntity();
+		}*/
 
 		Child->Parent = this;
 		Child->ParentUUID = m_UUID;
-		Children.push_back(std::move(Child));
-		//std::cout << Children.back()->m_UUID << std::endl;
-		ChildrenUUID.push_back(Children.back()->m_UUID);
 
+		ChildrenUUID.push_back(Child->m_UUID);
+		Children.push_back(std::move(Child));
 
 	};
 
 
 	Entity::~Entity()
 	{
+		std::cout << "destoyed" << std::endl;
 		m_World->RemoveEntityFromRegistry(*this);
 	}
 
@@ -104,11 +105,11 @@ namespace Engine {
 	{
 		J = R"(
 				{
-				
 				"ParentUUID":-1,
 				"UUID":-1,
 				"ChildrenUUIDs":[],
 				"components":[]
+
 				})"_json;
 
 		J.at("UUID") = E.m_UUID.str();
@@ -118,10 +119,21 @@ namespace Engine {
 			J.at("ChildrenUUIDs").push_back(ChildUUID.str());
 		}
 
+		std::cout << std::setw(4) << "Entity json " << J << std::endl;
+		std::cout << "J.at(components) " << J.at("components") << std::endl;
+		std::cout << "components array size " << E.m_Components.size() << std::endl;
+
+
 		for (auto* Comp : E.m_Components)
 		{
+			/*Comp->DummyFunc();*/
+			/*std::cout << "comp json size: " << CompJsonDum.size() << std::endl;*/
+			std::cout << Comp->ToJsonDebug() << std::endl;
 			J.at("components").push_back(Comp->ToJsonC());
+			/*J.at("components").push_back(Comp->ToJsonC());*/
 		}
+
+
 
 	}
 
