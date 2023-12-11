@@ -22,7 +22,7 @@ namespace Engine {
 		std::vector<Reflect::Var> ExportedProperties;
 
 		bool IsAliveInEditor = true;
-		bool QueuedForDeletion = false;
+		/*bool QueuedForDeletion = false;*/
 
 		virtual Component& AddComponentToEntity(Entity& Target) = 0;
 		virtual void RemoveThisComponentFromEntity(Entity& Target) = 0;

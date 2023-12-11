@@ -90,7 +90,6 @@ namespace Engine {
 
 	Entity::~Entity()
 	{
-		std::cout << "destoyed" << std::endl;
 		m_World->RemoveEntityFromRegistry(*this);
 	}
 

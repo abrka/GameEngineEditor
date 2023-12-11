@@ -22,10 +22,11 @@ namespace Engine {
 
 		std::vector<Component*> m_Components{};
 
-		Entity* Parent{nullptr};
+		Entity* Parent{ nullptr };
 		xg::Guid ParentUUID;
 
 		entt::entity m_EntityHandle{ entt::null };
+		Engine::World* m_World{};
 
 		std::vector<std::unique_ptr<Entity>> Children;
 		std::vector<xg::Guid> ChildrenUUID;
@@ -33,15 +34,14 @@ namespace Engine {
 		void RemoveThisFromParentsChildren();
 		void RemoveThisUUIDFromParentsChildrenUUID();
 		void DestroyEntity();
-		
+
 
 	private:
-		Engine::World* m_World{};
-		
-		int DebugValue = 5;
+
+
 		void AddDefaultComponents();
-		
-		
+
+
 
 	public:
 		template< typename T, typename... Args>
@@ -49,25 +49,36 @@ namespace Engine {
 
 			assert(m_World && "scene is null");
 			assert(m_EntityHandle != entt::null && "entity handle is null");
-    		assert(not HasComponent<T>() && "entity already has specified component");
-			
+			//assert(not HasComponent<T>() && "entity already has specified component");
+
+			if (HasComponent<T>()) {
+				std::cout << "Entity already has specified component. Returning from AddComponent()" << std::endl;
+				return GetComponent<T>();
+			}
+
 			T& AddedComponent = m_World->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
 			Component* AddedComponentAsComponent = static_cast<Component*>(&AddedComponent);
 			AddedComponentAsComponent->Owner = this;
 
 			assert(AddedComponentAsComponent && "type of component is not Component");
-	
+
 			m_Components.push_back(AddedComponentAsComponent);
 			return AddedComponent;
 
-			 
+
 		}
 
 		template<typename T>
 		void RemoveComponent() {
 			assert(m_World && "scene is null");
 			assert(m_EntityHandle != entt::null && "entity handle is null");
-			assert(HasComponent<T>() &&  "entity doesnt have specified component");
+			assert(HasComponent<T>() && "entity doesnt have specified component");
+
+			m_Components.erase(std::remove_if(m_Components.begin(), m_Components.end(),
+				[this](auto* Comp) {
+					return Comp == &(GetComponent<T>()); }),
+					m_Components.end());
+
 			m_World->m_Registry.remove<T>(m_EntityHandle);
 		}
 
@@ -81,7 +92,7 @@ namespace Engine {
 
 
 		template<typename U>
-		bool HasComponent() const{
+		bool HasComponent() const {
 			assert(m_World && "scene is null");
 			assert(m_EntityHandle != entt::null && "entity handle is null");
 			return m_World->m_Registry.any_of<U>(m_EntityHandle);

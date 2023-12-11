@@ -13,11 +13,6 @@ namespace Engine {
 
 	public:
 		ComponentFactory();
-		
-
-		void AddComponentFromType(std::string Type, nlohmann::json& CompJson, Engine::Entity& TargetEntity);
-
-	private:
 
 		using ComponentMap = std::map<std::string, std::unique_ptr<Component>>;
 		ComponentMap CompMap;
@@ -27,7 +22,9 @@ namespace Engine {
 			auto Comp = static_cast<std::unique_ptr<Component>>(std::make_unique<T>());
 			CompMap[Comp->ComponentType] = std::move(Comp);
 		};
-
 		void RegisterAllComponents();
+
+		void AddComponentFromType(std::string Type, Engine::Entity& TargetEntity);
+		void AddComponentFromType(std::string Type, nlohmann::json& CompJson, Engine::Entity& TargetEntity);
 	};
 }
