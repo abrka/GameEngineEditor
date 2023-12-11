@@ -24,7 +24,7 @@ void Editor::HierarchyEntityPanel::Render(Engine::World& EcsWorld, Editor::TreeN
 
 		auto& MovedEntity = s_TreeNodeRenderer.SelectedNode->AssociatedObject.Children.back();
 
-		s_TreeNodeRenderer.SelectedNode->AddChild(std::make_unique<Editor::TreeNode>("Added tree node", *MovedEntity));
+		s_TreeNodeRenderer.SelectedNode->AddChild(std::make_unique<Editor::TreeNode>(*MovedEntity));
 		s_TreeNodeRenderer.SelectedNode->ImGuiFlags |= ImGuiTreeNodeFlags_DefaultOpen;
 	}
 

@@ -45,7 +45,7 @@ private:
 
     std::vector<Reflect::Var> ReflVars;
     Engine::World EcsWorld{};
-    std::unique_ptr<Editor::TreeNode> TreeNodeRoot = std::make_unique<Editor::TreeNode>( "Root", *EcsWorld.RootEntity);
+    std::unique_ptr<Editor::TreeNode> TreeNodeRoot = std::make_unique<Editor::TreeNode>( *EcsWorld.RootEntity);
 
     Editor::AssetBrowser s_AssetBrowser{};
     Editor::HierarchyEntityPanel s_EntityPanel{};

@@ -170,7 +170,7 @@ void EditorApplication::LoadScene(std::string InFilePath)
 
 	TreeNodeRoot.reset();
 	EcsWorld.LoadScene(InFilePath);
-	TreeNodeRoot = std::make_unique<Editor::TreeNode>("root", *EcsWorld.RootEntity);
+	TreeNodeRoot = std::make_unique<Editor::TreeNode>(*EcsWorld.RootEntity);
 
 	ConvertEcsEntitiesToTreeNodes(*TreeNodeRoot, *EcsWorld.RootEntity);
 	
@@ -182,15 +182,8 @@ void EditorApplication::ConvertEcsEntitiesToTreeNodes(Editor::TreeNode& RootTree
 {
 	for (auto& Ent : RootEntity.Children)
 	{
-		RootTreeNode.AddChild(std::make_unique<Editor::TreeNode>("Added Entity", *Ent));
+		RootTreeNode.AddChild(std::make_unique<Editor::TreeNode>(*Ent));
 		ConvertEcsEntitiesToTreeNodes(*RootTreeNode.Children.back(), *Ent); 
-
-			//for (auto& Ent : Ent->Children)
-			//{
-			//	RootTreeNode.Children.back()->AddChild(std::make_unique<Editor::TreeNode>("Added Entity", *Ent));
-			//	/*ConvertEcsEntitiesToTreeNodes(*RootTreeNode.Children.back(), *Ent);*/
-			//}
-
 	};
 };
 

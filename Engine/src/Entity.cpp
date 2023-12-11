@@ -96,6 +96,7 @@ namespace Engine {
 	void Entity::AddDefaultComponents()
 	{
 		AddComponent<EntityMarker>();
+		AddComponent<Name>();
 	}
 
 

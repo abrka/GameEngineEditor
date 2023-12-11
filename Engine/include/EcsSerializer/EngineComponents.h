@@ -33,14 +33,15 @@ namespace Engine {
 	class Name : public Component {
 
 	public:
-		std::string StrName{ "None" };
+		std::string StrName{};
 
-		Name() : Component("Name") {
+		/*Name() : Component("Name") {
 			ExportedProperties.push_back(Reflect::Var{ &StrName, Reflect::Type::StringType, "name" });
-		};
+		};*/
 
-		Name(std::string _Name) : Component("Name"), StrName(_Name) {
+		Name(std::string _Name = "unnamed") : Component("Name"), StrName(_Name) {
 			ExportedProperties.push_back(Reflect::Var{ &StrName, Reflect::Type::StringType, "name" });
+			CanBeKilledInEditor = false;
 		};
 
 		Component& AddComponentToEntity(Entity& Target) override {

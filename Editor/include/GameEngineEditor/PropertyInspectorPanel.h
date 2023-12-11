@@ -36,16 +36,24 @@ namespace Editor {
 				//we do not show the entity marker component in editor. it is for internal engine purposes
 				if (not IsCompEntityMarker(*Comp)) {
 
-					if (ImGui::CollapsingHeader(GetComponentImguiId(*Comp).c_str(), &Comp->IsAliveInEditor, ImGuiTreeNodeFlags_DefaultOpen))
+					bool IsComponentPanelOpen = false;
+
+					if (Comp->CanBeKilledInEditor) {
+						IsComponentPanelOpen = ImGui::CollapsingHeader(GetComponentImguiId(*Comp).c_str(), &Comp->IsAliveInEditor, ImGuiTreeNodeFlags_DefaultOpen);
+					}
+					else {
+						IsComponentPanelOpen = ImGui::CollapsingHeader(GetComponentImguiId(*Comp).c_str(), ImGuiTreeNodeFlags_DefaultOpen);
+					}
+
+					if (IsComponentPanelOpen)
 					{
 						RenderProperties(Comp->ExportedProperties);
 					}
-				}
 
+					if (not Comp->IsAliveInEditor) {
+						Comp->RemoveThisComponentFromEntity(*Comp->Owner);
 
-				if (not Comp->IsAliveInEditor) {
-					Comp->RemoveThisComponentFromEntity(*Comp->Owner);
-
+					}
 				}
 			}
 
