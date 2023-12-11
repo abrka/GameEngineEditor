@@ -91,6 +91,7 @@ void Engine::World::DestroyAllEntities()
 
 	RootEntity.reset();
 
+
 	/*auto EntityView = m_Registry.view<EntityMarker>();
 	EntityView.each([](EntityMarker& Marker) {
 		delete Marker.Owner;

@@ -17,20 +17,17 @@ namespace Engine {
 		Component( std::string _ComponentType) :  ComponentType(_ComponentType) { };
 		virtual ~Component() {};
 
-		const std::string ComponentType{ "none component" };
+		const std::string ComponentType{ };
 		Entity* Owner = nullptr;
 		std::vector<Reflect::Var> ExportedProperties;
 
+		bool IsAliveInEditor = true;
+		bool QueuedForDeletion = false;
+
 		virtual Component& AddComponentToEntity(Entity& Target) = 0;
+		virtual void RemoveThisComponentFromEntity(Entity& Target) = 0;
 		virtual nlohmann::json ToJsonC() = 0;
 		virtual void InitFromJson(nlohmann::json& _json) = 0;
-
-		nlohmann::json ToJsonDebug() {
-			auto ret = nlohmann::json{
-				{"ComponentType", ComponentType}
-			};
-			return ret;
-		};
 		
 		
 	};

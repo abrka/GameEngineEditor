@@ -15,15 +15,14 @@ namespace Engine {
 		Component& AddComponentToEntity(Entity& Target) override {
 			return Target.AddComponent<EntityMarker>();
 		};
+		void RemoveThisComponentFromEntity(Entity& Target) override {
+			Target.RemoveComponent<EntityMarker>();
+		};
 
 		nlohmann::json ToJsonC() override {
-			
-			auto ret = nlohmann::json{
-				{"ComponentType",ComponentType},
+			return nlohmann::json{
+				{"ComponentType",ComponentType}
 			};
-
-			std::cout << "component json internal :" << std::setw(4) << ret << std::endl;
-			return ret;
 		};
 
 		void InitFromJson(nlohmann::json& _json) override { };
@@ -47,16 +46,14 @@ namespace Engine {
 		Component& AddComponentToEntity(Entity& Target) override {
 			return Target.AddComponent<Name>();
 		};
+		void RemoveThisComponentFromEntity(Entity& Target) override {
+			Target.RemoveComponent<Name>();
+		}
 
 		nlohmann::json ToJsonC() override {
-			
-			auto ret = nlohmann::json{
+			return nlohmann::json{
 				{"ComponentType",ComponentType},
 				{"Name", StrName} };
-
-			std::cout << "component json internal :" << std::setw(4) << ret << std::endl;
-			return ret;
-			
 		};
 
 		void InitFromJson(nlohmann::json& _json) override {
@@ -87,16 +84,17 @@ namespace Engine {
 		Component& AddComponentToEntity(Entity& Target) override {
 			return Target.AddComponent<Position>();
 		};
+		void RemoveThisComponentFromEntity(Entity& Target) override {
+			Target.RemoveComponent<Position>();
+		}
+
 
 		nlohmann::json ToJsonC() override {
-			
-			auto ret = nlohmann::json{
+			return nlohmann::json{
 				{"ComponentType",ComponentType},
 				{"X", X},
 				{"Y",Y}
 			};
-			std::cout <<"component json internal :"<< std::setw(4) << ret << std::endl;
-			return ret;
 		};
 
 		void InitFromJson(nlohmann::json& _json) override {

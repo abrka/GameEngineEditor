@@ -119,18 +119,11 @@ namespace Engine {
 			J.at("ChildrenUUIDs").push_back(ChildUUID.str());
 		}
 
-		std::cout << std::setw(4) << "Entity json " << J << std::endl;
-		std::cout << "J.at(components) " << J.at("components") << std::endl;
-		std::cout << "components array size " << E.m_Components.size() << std::endl;
-
-
 		for (auto* Comp : E.m_Components)
 		{
-			/*Comp->DummyFunc();*/
-			/*std::cout << "comp json size: " << CompJsonDum.size() << std::endl;*/
-			std::cout << Comp->ToJsonDebug() << std::endl;
+			
 			J.at("components").push_back(Comp->ToJsonC());
-			/*J.at("components").push_back(Comp->ToJsonC());*/
+			
 		}
 
 

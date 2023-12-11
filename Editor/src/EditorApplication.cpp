@@ -112,10 +112,14 @@ void EditorApplication::Loop()
 		s_AssetBrowser.Render();
 
 		Editor::TreeNode* SelectedTreeNode = s_EntityPanel.s_TreeNodeRenderer.SelectedNode;
-		if (SelectedTreeNode != nullptr) {
-			Editor::RenderComponentsPanel(SelectedTreeNode->AssociatedObject);
+		if (SelectedTreeNode) {
+			Editor::RenderInspectorPanel(&(SelectedTreeNode->AssociatedObject));
 		}
-
+		else {
+			Editor::RenderInspectorPanel(nullptr);
+		}
+		
+		
 		ImGui::Begin("save and load scene");
 		if (ImGui::Button("save scene")) {
 			SaveScene("saved_main_scene");
