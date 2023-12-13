@@ -1,6 +1,7 @@
 #include "ComponentFactory.h"
 #include "Entity.h"
 #include "EngineComponents.h"
+#include "WImage.h"
 #include "Component.h"
 #include <string>
 
@@ -11,7 +12,7 @@ void Engine::ComponentFactory::RegisterAllComponents()
 	RegisterComponent<Name>();
 	RegisterComponent<Position>();
 	RegisterComponent<EntityMarker>();
-
+	RegisterComponent<WImage>();
 }
 
 

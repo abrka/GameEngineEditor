@@ -8,6 +8,7 @@ namespace Reflect {
         FloatType,
         DoubleType,
         StringType,
+        FilePathType,
         BoolType,
         Vec2Type,
         Color4Type

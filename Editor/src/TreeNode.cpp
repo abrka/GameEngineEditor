@@ -21,7 +21,7 @@ void Editor::TreeNode::RemoveThisFromParentsChildren()
 void Editor::TreeNode::DestroyNode()
 {
     if (Parent == nullptr) {
-        std::cout << "parent is null. returning from remove parent" << std::endl;
+       /* std::cout << "parent is null. returning from remove parent" << std::endl;*/
         return;
     }
 

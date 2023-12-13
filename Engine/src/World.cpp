@@ -42,6 +42,7 @@ std::vector<Engine::Entity*> Engine::World::GetAllEntities()
 		EntityMarker& EntMarker = m_Registry.get<EntityMarker>(Entity);
 		AllEntities.push_back(EntMarker.Owner);
 	}
+
 	return AllEntities;
 }
 
@@ -49,7 +50,7 @@ Engine::Entity* Engine::World::FindEntityParentFromUUID(Engine::Entity* Ent)
 {
 	std::vector<Entity*> AllEntities = GetAllEntities();
 
-    auto It = std::find_if(AllEntities.begin(), AllEntities.end(),
+	auto It = std::find_if(AllEntities.begin(), AllEntities.end(),
 		[Ent](Entity* OtherEnt) {
 			return OtherEnt->m_UUID == Ent->ParentUUID;
 		});
@@ -67,18 +68,18 @@ void Engine::World::SaveScene(std::string OutFilePath)
 					] 
 					})"_json;
 
-	std::cout << SceneJson;
+	/*std::cout << SceneJson;*/
 
 	//old method for getting all entites
 	/*auto EntityView = m_Registry.view<EntityMarker>();
 	for (auto Entity : EntityView) {
-		
+
 		EntityMarker& EntMarker = m_Registry.get<EntityMarker>(Entity);
 		SceneJson.at("Entities").push_back(*EntMarker.Owner);
 
 	}*/
-
-	for (Engine::Entity* Ent : GetAllEntities()) {
+	auto AllEntities = GetAllEntities();
+	for (Engine::Entity* Ent : AllEntities) {
 		SceneJson.at("Entities").push_back(*Ent);
 	}
 
@@ -97,10 +98,10 @@ void Engine::World::DestroyAllEntities()
 		delete Marker.Owner;
 		});*/
 
-	/*for (auto* Ent : m_Entities)
-	{
-		delete Ent;
-	}*/
+		/*for (auto* Ent : m_Entities)
+		{
+			delete Ent;
+		}*/
 }
 
 bool Engine::World::IsRootEntity(Engine::Entity& Ent)
@@ -119,11 +120,11 @@ void Engine::World::LoadScene(std::string InFilePath)
 
 	xg::Guid EmptyUUID;
 	std::vector<std::unique_ptr<Engine::Entity>> TempEntityStorage;
-	 
+
 	//first create all entities 
 	for (json& EntJson : InJson.at("Entities")) {
 
-		
+
 		//at first everything is added to a temporary storage. the parents and chidlren are set later
 		TempEntityStorage.push_back(CreateEntity(EntJson));
 
@@ -133,7 +134,7 @@ void Engine::World::LoadScene(std::string InFilePath)
 			//after std::move the root entity element in TempEnitiyStorage becomes nullptr. so we remove any nullptr from the Storage to remove the RootEntityElement
 			TempEntityStorage.erase(std::remove(TempEntityStorage.begin(), TempEntityStorage.end(), nullptr), TempEntityStorage.end());
 		}
-		
+
 	}
 
 
@@ -141,10 +142,10 @@ void Engine::World::LoadScene(std::string InFilePath)
 
 	for (std::unique_ptr<Entity>& Ent : TempEntityStorage) {
 
-		
+
 		// if there is a valid parent uuid set parent pointer
 		if (Ent->ParentUUID != EmptyUUID) {
-		
+
 			Ent->Parent = FindEntityParentFromUUID(Ent.get());
 			Ent->Parent->Children.push_back(std::move(Ent));
 

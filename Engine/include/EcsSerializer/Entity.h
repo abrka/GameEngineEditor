@@ -52,7 +52,7 @@ namespace Engine {
 			//assert(not HasComponent<T>() && "entity already has specified component");
 
 			if (HasComponent<T>()) {
-				std::cout << "Entity already has specified component. Returning from AddComponent()" << std::endl;
+				/*std::cout << "Entity already has specified component. Returning from AddComponent()" << std::endl;*/
 				return GetComponent<T>();
 			}
 

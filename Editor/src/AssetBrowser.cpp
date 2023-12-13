@@ -3,34 +3,42 @@
 #include <iostream>
 #include "imgui.h"
 
-Editor::AssetBrowser::AssetBrowser()
-{
 
-}
 
 
 void Editor::AssetBrowser::DrawFiles()
 {
-    static std::filesystem::path CurrentPath{ StartingPath };
+    static std::filesystem::path CurrentPath{ BuildDirPath };
     
 
-    if (ImGui::Button("<-") and CurrentPath.has_parent_path() and CurrentPath != StartingPath) {
+    if (ImGui::Button("<-") and CurrentPath.has_parent_path() and CurrentPath != BuildDirPath) {
         CurrentPath = CurrentPath.parent_path();
     }
 
     for (auto& dir_entry : std::filesystem::directory_iterator{ CurrentPath }) {
 
      
-        bool FileNodeOpen = ImGui::Selectable(dir_entry.path().filename().string().c_str(), SelectedPath == dir_entry.path());
+        bool FileNodeOpen = ImGui::Selectable(dir_entry.path().filename().string().c_str(), SelectedDirPath == dir_entry.path());
 
         if (FileNodeOpen) {
-            SelectedPath = dir_entry.path();
+            SelectedDirPath = dir_entry.path();
         }
         if (FileNodeOpen and dir_entry.is_directory()) {
             CurrentPath = dir_entry.path();
             
         }
 
+        if (ImGui::BeginDragDropSource()) {
+
+            CurrentPayload._SentFile = dir_entry;
+
+            ImGui::SetDragDropPayload("FILE", (void*) &CurrentPayload , sizeof(CurrentPayload));
+            
+            std::filesystem::path DraggedFile = std::filesystem::relative(dir_entry.path(), BuildDirPath);
+            ImGui::Text(DraggedFile.string().c_str());
+
+            ImGui::EndDragDropSource();
+        }
 
     }
     

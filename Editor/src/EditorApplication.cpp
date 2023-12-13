@@ -122,10 +122,10 @@ void EditorApplication::Loop()
 		
 		ImGui::Begin("save and load scene");
 		if (ImGui::Button("save scene")) {
-			SaveScene("saved_main_scene");
+			SaveScene("scene.json");
 		}
 		if (ImGui::Button("load scene")) {
-			LoadScene("saved_main_scene");
+			LoadScene("scene.json");
 		}
 		ImGui::End();
 	}

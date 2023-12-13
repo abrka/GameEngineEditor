@@ -1,15 +1,19 @@
 #pragma once
 #include <filesystem>
+#include "FilePayload.h"
 
 namespace Editor {
+
     class AssetBrowser
     {
     public:
-        AssetBrowser();
+        AssetBrowser() {};
         void Render();
     private:
         void DrawFiles();
-        const std::filesystem::path StartingPath{ std::filesystem::current_path() };
-        std::filesystem::path SelectedPath{ StartingPath };
+        const std::filesystem::path BuildDirPath{ std::filesystem::current_path() };
+        std::filesystem::path SelectedDirPath{ BuildDirPath };
+
+        FilePayload CurrentPayload{BuildDirPath};
     };
 }
