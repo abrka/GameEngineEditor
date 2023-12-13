@@ -55,18 +55,13 @@ void Editor::RenderVar(Reflect::Var& _Var)
 	case Reflect::Type::FilePathType:
 	{
 
-		/*std::filesystem::path* DataAsFilePath = static_cast<std::filesystem::path*>(_Var.Data);
-		std::string DataAsString = DataAsFilePath->string();
-
-		ImGui::InputText(GetImGuiIDFromName(_Var).c_str(), &DataAsString);
-
-		*DataAsFilePath = std::filesystem::path{ DataAsString };
-		_Var.Data = DataAsFilePath;*/
-
 		auto* VarAsFilePath = static_cast<std::filesystem::path*>(_Var.Data);
+		std::string VarFilePathString = VarAsFilePath->string();
 
-		ImGui::Text(VarAsFilePath->string().c_str());
 
+		ImGui::InputText(GetImGuiIDFromName(_Var).c_str(), &VarFilePathString);
+
+		*VarAsFilePath = std::filesystem::path{ VarFilePathString };
 
 		if (ImGui::BeginDragDropTarget()) {
 
@@ -85,9 +80,7 @@ void Editor::RenderVar(Reflect::Var& _Var)
 			ImGui::EndDragDropTarget();
 		}
 
-		ImGui::SameLine();
-		ImGui::Text(_Var.Name.c_str());
-
+	
 		break;
 	}
 
