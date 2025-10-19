@@ -31,7 +31,7 @@ $ sudo apt-get install libsdl2-dev libsdl2-image-dev
 - Install SDL2_image from [here](https://github.com/libsdl-org/SDL_image/releases/download/release-2.8.8/SDL2_image-devel-2.8.8-VC.zip)
 - Create new environment variable ```SDL2_IMAGE_PATH``` and set it to the directory where SDL2_image is installed
 - Create new environment variable ```SDL2_IMAGE_INCLUDE_DIR``` and set it to ```<sdl2_image directory>/include```
-- Create new environment variable ```SDL2__IMAGE_LIBRARY``` and set it to ```<sdl2_image directory>/lib/x64``` (or ```<sdl2 directory>/lib/x32``` if using 32 bit system)
+- Create new environment variable ```SDL2_IMAGE_LIBRARY``` and set it to ```<sdl2_image directory>/lib/x64``` (or ```<sdl2 directory>/lib/x32``` if using 32 bit system)
 - Add the directory where SDL2_image is installed to ```PATH```
 
 ## Building
