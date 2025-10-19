@@ -85,7 +85,7 @@ void Engine::RenderImage(Engine::World& EcsWorld, SDL_Renderer* mRenderer)
 			return;
 		}
 
-		SDL_Rect RenderQuad{ ImageComp.WorldPosition.x, ImageComp.WorldPosition.y, ImageComp.Size.x, ImageComp.Size.y };
+		SDL_Rect RenderQuad{ (int)ImageComp.WorldPosition.x, (int)ImageComp.WorldPosition.y, (int)ImageComp.Size.x, (int)ImageComp.Size.y };
 
 		//Set clip rendering dimensions
 		if (ImageComp.Clip != NULL)
