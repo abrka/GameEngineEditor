@@ -41,6 +41,8 @@ void EditorApplication::Startup()
 	io = &ImGui::GetIO(); (void)io;
 	io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	io->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
@@ -100,6 +102,8 @@ void EditorApplication::Loop()
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
+	ImGui::DockSpaceOverViewport(nullptr, ImGuiDockNodeFlags_PassthruCentralNode);
+	
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	if (show_demo_window)
 		ImGui::ShowDemoWindow(&show_demo_window);
@@ -107,7 +111,9 @@ void EditorApplication::Loop()
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
 	{
 
+		ImGui::Begin("Debug Properties");
 		Editor::RenderProperties(ReflVars);
+		ImGui::End();
 		s_EntityPanel.Render(EcsWorld, *TreeNodeRoot);
 		s_AssetBrowser.Render();
 
@@ -129,7 +135,6 @@ void EditorApplication::Loop()
 		}
 		ImGui::End();
 	}
-
 
 
 	// Rendering
