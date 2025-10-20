@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(imgui)
+project(imgui_proj)
 
 add_library(imgui)
-add_library(imgui::imgui ALIAS imgui)
 
 target_sources(imgui
                 PRIVATE imgui-docking/imconfig.h
@@ -29,3 +28,6 @@ target_include_directories(
     imgui
     PUBLIC $<BUILD_INTERFACE: ${CMAKE_CURRENT_SOURCE_DIR}/imgui-docking/backends ${CMAKE_CURRENT_SOURCE_DIR}/imgui-docking ${CMAKE_CURRENT_SOURCE_DIR}/imgui-docking/misc/cpp>
            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+           
+target_link_libraries(imgui SDL2::SDL2)
+target_link_libraries(imgui SDL2::SDL2main)

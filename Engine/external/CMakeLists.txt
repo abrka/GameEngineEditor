@@ -1,33 +1,7 @@
-# include(FetchContent)
-
-
-# FetchContent_Declare(
-#   entt
-#   GIT_REPOSITORY https://github.com/skypjack/entt.git
-# )
-# FetchContent_MakeAvailable(entt)
-
-
-# FetchContent_Declare(
-#   nlohmann_json
-#   URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
-# )
-# FetchContent_MakeAvailable(nlohmann_json)
-
-
-# FetchContent_Declare(
-#   guid
-#   GIT_REPOSITORY https://github.com/graeme-hill/crossguid.git
-# )
-# FetchContent_MakeAvailable(guid)
-
-# FetchContent_Declare(
-#   glm
-#   GIT_REPOSITORY https://github.com/g-truc/glm.git
-# )
-# FetchContent_MakeAvailable(glm)
-
-add_subdirectory(crossguid-master)
+add_subdirectory(crossguid)
+add_subdirectory(SDL2)
+set(SDL2IMAGE_VENDORED OFF)
+add_subdirectory(SDL2_image)
 add_subdirectory(entt-master)
 add_subdirectory(json-develop)
 add_subdirectory(glm-master)

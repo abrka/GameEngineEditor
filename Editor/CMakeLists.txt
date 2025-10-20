@@ -38,21 +38,12 @@ target_include_directories(
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/GameEngineEditor>
            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-find_package(SDL2 REQUIRED)
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2)
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2main)
 
 add_subdirectory(external)
-target_link_libraries(imgui SDL2::SDL2)
-target_link_libraries(imgui SDL2::SDL2main)
-target_link_libraries(${PROJECT_NAME} imgui::imgui)
 
-# include(FetchContent)
-# FetchContent_Declare(
-#   EcsLib
-#   GIT_REPOSITORY https://github.com/abcdedafjkdmme/EcsSerializer.git
-# )
-# FetchContent_MakeAvailable(EcsLib)
+target_link_libraries(${PROJECT_NAME} SDL2::SDL2)
+target_link_libraries(${PROJECT_NAME} SDL2::SDL2main)
+target_link_libraries(${PROJECT_NAME} imgui)
 
 
 

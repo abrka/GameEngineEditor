@@ -6,7 +6,6 @@ project(Engine
     )
 
 set (CMAKE_CXX_STANDARD 20)
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 add_library(${PROJECT_NAME})
 
@@ -22,7 +21,7 @@ target_sources(${PROJECT_NAME}
                         include/EcsSerializer/Entity.h
                         include/EcsSerializer/World.h
                         include/EcsSerializer/ReflectedVar.h
-                        include/EcsSerializer/WImage.h )
+                        include/EcsSerializer/WImage.h)
 
 
 
@@ -32,20 +31,23 @@ target_include_directories(
            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-#target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::Core)
-target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::Main)
-target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::Image)
 
 add_subdirectory(external)
+
+
 target_link_libraries(${PROJECT_NAME}
-            PUBLIC crossguid)
+           PUBLIC crossguid) 
+
+target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::SDL2)
+target_link_libraries(${PROJECT_NAME} PUBLIC SDL2_image::SDL2_image)
+
+
 target_link_libraries(${PROJECT_NAME}
            PUBLIC nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME}
            PUBLIC EnTT::EnTT)
 target_link_libraries(${PROJECT_NAME}
            PUBLIC glm::glm)
+    
 
 add_subdirectory(examples)
