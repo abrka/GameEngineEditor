@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(imgui_proj)
 
-add_library(imgui)
+add_library(imgui STATIC)
 
 target_sources(imgui
                 PRIVATE imgui-docking/imconfig.h
