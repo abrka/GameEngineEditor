@@ -47,4 +47,22 @@ target_link_libraries(${PROJECT_NAME} imgui)
 
 
 
+if (WIN32)
+    add_custom_command(
+        TARGET ${PROJECT_NAME}  # Replace with the actual name of your executable target
+        POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "$<TARGET_FILE:SDL2_image::SDL2_image>" # This refers to the SDL2 DLL
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>" # Destination directory
+        VERBATIM
+    )
+    add_custom_command(
+        TARGET ${PROJECT_NAME}  # Replace with the actual name of your executable target
+        POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                "$<TARGET_FILE:SDL2::SDL2>" # This refers to the SDL2 DLL
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>" # Destination directory
+        VERBATIM
+    )
+endif()
 
