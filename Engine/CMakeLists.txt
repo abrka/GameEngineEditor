@@ -7,7 +7,7 @@ project(Engine
 
 set (CMAKE_CXX_STANDARD 20)
 
-add_library(${PROJECT_NAME})
+add_library(${PROJECT_NAME} STATIC)
 
 
 target_sources(${PROJECT_NAME} 
@@ -35,19 +35,11 @@ target_include_directories(
 add_subdirectory(external)
 
 
-target_link_libraries(${PROJECT_NAME}
-           PUBLIC crossguid) 
-
 target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::SDL2)
 target_link_libraries(${PROJECT_NAME} PUBLIC SDL2_image::SDL2_image)
-
-
-target_link_libraries(${PROJECT_NAME}
-           PUBLIC nlohmann_json::nlohmann_json)
-target_link_libraries(${PROJECT_NAME}
-           PUBLIC EnTT::EnTT)
-target_link_libraries(${PROJECT_NAME}
-           PUBLIC glm::glm)
-    
+target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json::nlohmann_json)
+target_link_libraries(${PROJECT_NAME} PUBLIC EnTT::EnTT)
+target_link_libraries(${PROJECT_NAME} PUBLIC glm::glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC crossguid) 
 
 add_subdirectory(examples)
