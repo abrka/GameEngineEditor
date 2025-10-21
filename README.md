@@ -9,6 +9,14 @@ This is an editor written for game engines
 
 - Compiler that supports C++20
 - CMake
+### Linux
+- libuuid
+
+
+### Installing Requirements on Ubuntu
+```shell
+sudo apt-get install uuid-dev
+```
 
 ## Building
 
